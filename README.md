@@ -1,0 +1,1 @@
+# MyAndroidProject - This is a simple Android Studio Project.
