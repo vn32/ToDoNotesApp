@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MyNotesActivity extends AppCompatActivity {
     String fullname;
     FloatingActionButton fabAddNotes;
+    TextView textViewDescription,textViewTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public class MyNotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_notes);
         //assigning value to fabAddNotes
         fabAddNotes=findViewById(R.id.fabAddNotes);
+        textViewTitle=findViewById(R.id.textViewTitle);
+        textViewDescription=findViewById(R.id.textViewDescription);
 
         Intent intent=getIntent();
         //assign value to varibale fullname of data accessed
@@ -40,15 +44,23 @@ public class MyNotesActivity extends AppCompatActivity {
     }
     private void setUpDialogBox() {
     View view= LayoutInflater.from(MyNotesActivity.this).inflate(R.layout.add_notes_dialog_layout,null);
-        EditText EditTextTitle=view.findViewById(R.id.EditTextTitle);
-        EditText EditTextDescription=view.findViewById(R.id.EditTextDescription);
+        final EditText EditTextTitle=view.findViewById(R.id.EditTextTitle);
+        final EditText EditTextDescription=view.findViewById(R.id.EditTextDescription);
         Button buttonSubmit=view.findViewById(R.id.buttonSubmit);
         //in android there is no pop-up term
         //use dialog
-        AlertDialog dialog= new AlertDialog.Builder(this)
+        final AlertDialog dialog= new AlertDialog.Builder(this)
                 .setView(view)
                 .setCancelable(false)
                 .create();
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textViewTitle.setText(EditTextTitle.getText().toString());
+                textViewDescription.setText(EditTextDescription.getText().toString());
+                dialog.hide();
+            }
+        });
         dialog.show();
 
 
