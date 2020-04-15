@@ -52,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void saveFullName(String fullName) {
         editor=sharedPreferences.edit();
+        //Full name is stored into editor
         editor.putString(PrefConstant.FULL_NAME,fullName);
         editor.apply();
 

@@ -2,6 +2,7 @@ package com.example.todonotesapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,12 +15,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.todonotesapp.model.Notes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 public class MyNotesActivity extends AppCompatActivity {
     String fullname;
     FloatingActionButton fabAddNotes;
-    TextView textViewDescription,textViewTitle;
+    RecyclerView recyclerViewNotes;
+    ArrayList<Notes> notesList=new ArrayList<>();
+//    TextView textViewDescription,textViewTitle;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -64,8 +70,9 @@ public class MyNotesActivity extends AppCompatActivity {
 
     private void bindView(){
         fabAddNotes=findViewById(R.id.fabAddNotes);
-        textViewTitle=findViewById(R.id.textViewTitle);
-        textViewDescription=findViewById(R.id.textViewDescription);
+        recyclerViewNotes=findViewById(R.id.recyclerViewNotes);
+//        textViewTitle=findViewById(R.id.textViewTitle);
+//        textViewDescription=findViewById(R.id.textViewDescription);
     }
     private void setUpDialogBox() {
     View view= LayoutInflater.from(MyNotesActivity.this).inflate(R.layout.add_notes_dialog_layout,null);
@@ -82,8 +89,16 @@ public class MyNotesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //assigning data to textViewTitle and textViewDescription
-                textViewTitle.setText(EditTextTitle.getText().toString());
-                textViewDescription.setText(EditTextDescription.getText().toString());
+//                textViewTitle.setText(EditTextTitle.getText().toString());
+//                textViewDescription.setText(EditTextDescription.getText().toString());
+                //here we can set value to add into list
+                String title=EditTextTitle.getText().toString();
+                String description=EditTextDescription.getText().toString();
+                Notes notes=new Notes();
+                notes.setTitle(title);
+                notes.setDescription(description);
+                notesList.add(notes);
+                Log.d("MyNotesActivity", String.valueOf(notesList.size()));
                 dialog.hide();
             }
         });
