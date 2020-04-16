@@ -2,6 +2,7 @@ package com.example.todonotesapp;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.todonotesapp.adapter.NotesAdapter;
 import com.example.todonotesapp.model.Notes;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -98,13 +100,24 @@ public class MyNotesActivity extends AppCompatActivity {
                 notes.setTitle(title);
                 notes.setDescription(description);
                 notesList.add(notes);
-                Log.d("MyNotesActivity", String.valueOf(notesList.size()));
+//                Log.d("MyNotesActivity", String.valueOf(notesList.size()));
+                //acccesing notesadapter or binding notes with adapter
+                setUpRecyclerView();
                 dialog.hide();
             }
         });
         dialog.show();
 
 
+
+    }
+
+    private void setUpRecyclerView() {
+        NotesAdapter notesAdapter=new NotesAdapter(notesList);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(MyNotesActivity.this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);//setting the item is shown horizontal  or veritical
+        recyclerViewNotes.setLayoutManager(linearLayoutManager);
+        recyclerViewNotes.setAdapter(notesAdapter);
 
     }
 }
