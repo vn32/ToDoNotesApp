@@ -10,15 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todonotesapp.MyNotesActivity;
 import com.example.todonotesapp.R;
+import com.example.todonotesapp.clicklisteners.ItemClickListener;
 import com.example.todonotesapp.model.Notes;
 
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> {
-    List<Notes> listNotes;
-    public NotesAdapter(List<Notes> list)
+    private List<Notes> listNotes;
+    private ItemClickListener itemClickListener;
+    public NotesAdapter(List<Notes> list ,ItemClickListener itemClickListener)
     {//assigning value of list to listNotes inside the constructor
         this.listNotes=list;
+        this.itemClickListener=itemClickListener;
     }
 
     @NonNull
@@ -34,11 +37,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull NotesAdapter.ViewHolder holder, int position) {
         //responsible for setting the data to the TextView
         //binding the listNotes data to the notes_adapter_layout i.e viewholder
-        Notes notes=listNotes.get(position);
+        final Notes notes=listNotes.get(position);
         String title=notes.getTitle();//get title and getdescription are method of NOtes class
         String description=notes.getDescription();
         holder.textViewTitle.setText(title);
         holder.textViewDescription.setText(description);
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            //here itemView is one item of combination Title and description in CardView of notesadapterlayout
+
+            @Override
+            public void onClick(View view) {
+                itemClickListener.onClick(notes);
+            }
+        });
 
 
     }
