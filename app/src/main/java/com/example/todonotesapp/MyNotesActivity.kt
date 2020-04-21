@@ -1,3 +1,110 @@
+package com.example.todonotesapp
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.todonotesapp.adapter.NotesAdapter
+import com.example.todonotesapp.clicklisteners.ItemClickListener
+import com.example.todonotesapp.model.Notes
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
+
+class MyNotesActivity : AppCompatActivity() {
+    var fullName: String?=null
+    lateinit var fabAddNotes: FloatingActionButton
+    lateinit var recyclerViewNotes: RecyclerView
+    var notesList = ArrayList<Notes>()
+    lateinit var sharedPreferences: SharedPreferences
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_my_notes)
+        bindView()
+        setupSharedPreference()
+        getIntentData()
+        supportActionBar?.title = fullName
+        fabAddNotes.setOnClickListener (object:View.OnClickListener{
+            override fun onClick(v: View?) {
+                setUpDialogBox()
+            }
+        })
+    }
+
+    private fun setupSharedPreference() {
+        sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
+    }
+
+    private fun getIntentData() {
+        val intent = intent
+        if(intent.hasExtra(AppConstant.Full_Name)){
+            fullName = intent.getStringExtra(AppConstant.Full_Name)
+        }
+        if (fullName==null) {
+            fullName = sharedPreferences.getString(PrefConstant.FULL_NAME," ")?:""
+        }
+
+    }
+
+    private fun bindView() {
+        fabAddNotes = findViewById(R.id.fabAddNotes)
+        recyclerViewNotes = findViewById(R.id.recyclerViewNotes)
+    }
+
+    @SuppressLint("InflateParams")
+    private fun setUpDialogBox() {
+        val view = LayoutInflater.from(this@MyNotesActivity).inflate(R.layout.add_notes_dialog_layout, null)
+        val editTextTitle = view.findViewById<EditText>(R.id.EditTextTitle)
+        val editTextDescription = view.findViewById<EditText>(R.id.EditTextDescription)
+        val buttonSubmit = view.findViewById<Button>(R.id.buttonSubmit)
+        val dialog = AlertDialog.Builder(this)
+                .setView(view)
+                .setCancelable(false)
+                .create()
+        buttonSubmit.setOnClickListener (object:View.OnClickListener{
+            override fun onClick(p0: View?) {
+                val title = editTextTitle.text.toString()
+                val description = editTextDescription.text.toString()
+                if (title.isNotEmpty() && description.isNotEmpty()) {
+                    val notes = Notes(title,description)
+                    notesList.add(notes)
+                } else {
+                    Toast.makeText(this@MyNotesActivity, "Title and Description can't be empty", Toast.LENGTH_SHORT).show()
+                }
+                setUpRecyclerView()
+                dialog.hide()
+            }
+        })
+        dialog.show()
+    }
+
+    private fun setUpRecyclerView() {
+        val itemClickListener= object : ItemClickListener {
+            override fun onClick(notes: Notes) {
+                val intent = Intent(this@MyNotesActivity, DetailActivity::class.java)
+                intent.putExtra(AppConstant.TITLE, notes.title)
+                intent.putExtra(AppConstant.DESCRIPTION, notes.description)
+                startActivity(intent)
+            }
+        }
+        val notesAdapter = NotesAdapter(notesList, itemClickListener)
+        val linearLayoutManager = LinearLayoutManager(this@MyNotesActivity)
+        linearLayoutManager.orientation = RecyclerView.VERTICAL //setting the item is shown horizontal  or veritical
+        recyclerViewNotes.layoutManager = linearLayoutManager
+        recyclerViewNotes.adapter = notesAdapter
+    }
+}
+/*
 package com.example.todonotesapp;
 
 import androidx.appcompat.app.AlertDialog;
@@ -139,3 +246,4 @@ public class MyNotesActivity extends AppCompatActivity {
 
     }
 }
+ */

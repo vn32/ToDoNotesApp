@@ -1,3 +1,7 @@
+package com.example.todonotesapp.model
+
+data class Notes(val title:String, val description:String)
+/*
 package com.example.todonotesapp.model;
 
 public class Notes {
@@ -21,3 +25,5 @@ public class Notes {
         this.description = description;
     }
 }
+
+ */

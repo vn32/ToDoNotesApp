@@ -1,3 +1,39 @@
+package com.example.todonotesapp.adapter
+
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.todonotesapp.R
+import com.example.todonotesapp.clicklisteners.ItemClickListener
+import com.example.todonotesapp.model.Notes
+
+class NotesAdapter(val listNotes: List<Notes>,val itemClickListener: ItemClickListener) : RecyclerView.Adapter<NotesAdapter.ViewHolder>()
+{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.notes_adapter_layout, parent, false)
+        return ViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val notes = listNotes[position]
+        val title = notes.title
+        val description = notes.description
+        holder.textViewTitle.text = title
+        holder.textViewDescription.text = description
+        holder.itemView.setOnClickListener { itemClickListener.onClick(notes) }
+    }
+
+    override fun getItemCount(): Int {
+        return listNotes.size
+    }
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var textViewTitle: TextView= itemView.findViewById(R.id.textViewTitle)
+        var textViewDescription: TextView= itemView.findViewById(R.id.textViewDescription)
+    }
+}
+/*
 package com.example.todonotesapp.adapter;
 
 import android.view.LayoutInflater;
@@ -38,8 +74,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         //responsible for setting the data to the TextView
         //binding the listNotes data to the notes_adapter_layout i.e viewholder
         final Notes notes=listNotes.get(position);
-        String title=notes.getTitle();//get title and getdescription are method of NOtes class
-        String description=notes.getDescription();
+        String title= notes.getTitle();//get title and getdescription are method of NOtes class
+        String description= notes.getDescription();
         holder.textViewTitle.setText(title);
         holder.textViewDescription.setText(description);
         holder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -71,3 +107,5 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         }
     }
 }
+
+ */

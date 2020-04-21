@@ -1,3 +1,33 @@
+package com.example.todonotesapp
+
+import android.os.Bundle
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+class DetailActivity : AppCompatActivity() {
+    lateinit var textEditTitle: TextView
+    lateinit var textEditDescription: TextView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
+        bindViews()
+        setUpIntentData()
+    }
+
+    private fun setUpIntentData() {
+        val intent = intent
+        val title = intent.getStringExtra(AppConstant.TITLE)
+        val description = intent.getStringExtra(AppConstant.DESCRIPTION)
+        textEditTitle.text = title
+        textEditDescription.text = description
+    }
+
+    private fun bindViews() {
+        textEditTitle = findViewById(R.id.textViewTitle)
+        textEditDescription = findViewById(R.id.textViewDescription)
+    }
+}
+/*
 package com.example.todonotesapp;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,3 +62,5 @@ public class DetailActivity extends AppCompatActivity {
         textEditDescription=findViewById(R.id.textViewDescription);
     }
 }
+
+ */
