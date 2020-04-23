@@ -44,7 +44,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.todonotesapp.MyNotesActivity;
+import com.example.todonotesapp.view.MyNotesActivity;
 import com.example.todonotesapp.R;
 import com.example.todonotesapp.clicklisteners.ItemClickListener;
 import com.example.todonotesapp.model.Notes;

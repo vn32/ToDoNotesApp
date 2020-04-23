@@ -1,4 +1,4 @@
-package com.example.todonotesapp
+package com.example.todonotesapp.utils
 
 object AppConstant {
     //static means thsi variable is accessible outside the class
