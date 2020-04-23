@@ -3,11 +3,13 @@ package com.example.todonotesapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.todonotesapp.R
 import com.example.todonotesapp.clicklisteners.ItemClickListener
-import com.example.todonotesapp.model.Notes
+import com.example.todonotesapp.db.Notes
 
 class NotesAdapter(val listNotes: List<Notes>,val itemClickListener: ItemClickListener) : RecyclerView.Adapter<NotesAdapter.ViewHolder>()
 {
@@ -21,8 +23,18 @@ class NotesAdapter(val listNotes: List<Notes>,val itemClickListener: ItemClickLi
         val title = notes.title
         val description = notes.description
         holder.textViewTitle.text = title
+        holder.checkboxMarkStatus.isChecked=notes.isTaskCompleted
         holder.textViewDescription.text = description
         holder.itemView.setOnClickListener { itemClickListener.onClick(notes) }
+        //for checkbox
+        holder.checkboxMarkStatus.setOnCheckedChangeListener(object:CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                notes.isTaskCompleted=isChecked
+                itemClickListener.onUpdate(notes)
+
+            }
+
+        })
     }
 
     override fun getItemCount(): Int {
@@ -31,6 +43,7 @@ class NotesAdapter(val listNotes: List<Notes>,val itemClickListener: ItemClickLi
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var textViewTitle: TextView= itemView.findViewById(R.id.textViewTitle)
         var textViewDescription: TextView= itemView.findViewById(R.id.textViewDescription)
+        var checkboxMarkStatus:CheckBox=itemView.findViewById(R.id.checkboxMarkStatus)
     }
 }
 /*

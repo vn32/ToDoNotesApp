@@ -1,7 +1,7 @@
 package com.example.todonotesapp.clicklisteners
 
-import com.example.todonotesapp.model.Notes
 //funtion void interface
 interface ItemClickListener {
-    fun onClick(notes: Notes)
+    fun onClick(notes: com.example.todonotesapp.db.Notes)
+    fun onUpdate(notes: com.example.todonotesapp.db.Notes)
 }

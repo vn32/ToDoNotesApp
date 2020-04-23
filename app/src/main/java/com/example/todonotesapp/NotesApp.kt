@@ -7,7 +7,7 @@ class NotesApp: Application() {
     override fun onCreate() {
         super.onCreate()
     }
-    fun getBotesdb():NotesDatabase{
+    fun getNotesDb():NotesDatabase{
         return NotesDatabase.getInstance(this)
     }
 }

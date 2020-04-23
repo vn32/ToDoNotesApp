@@ -14,12 +14,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.todonotesapp.NotesApp
 import com.example.todonotesapp.utils.AppConstant
 import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
 import com.example.todonotesapp.adapter.NotesAdapter
 import com.example.todonotesapp.clicklisteners.ItemClickListener
-import com.example.todonotesapp.model.Notes
+import com.example.todonotesapp.db.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
@@ -35,6 +36,8 @@ class MyNotesActivity : AppCompatActivity() {
         bindView()
         setupSharedPreference()
         getIntentData()
+        getDataFromDb()
+        setUpRecyclerView()
         supportActionBar?.title = fullName
         fabAddNotes.setOnClickListener (object:View.OnClickListener{
             override fun onClick(v: View?) {
@@ -42,6 +45,7 @@ class MyNotesActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun setupSharedPreference() {
         sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
@@ -78,16 +82,36 @@ class MyNotesActivity : AppCompatActivity() {
                 val title = editTextTitle.text.toString()
                 val description = editTextDescription.text.toString()
                 if (title.isNotEmpty() && description.isNotEmpty()) {
-                    val notes = Notes(title,description)
+                    //this error is coming because in db->notes there are 5 column,
+                    // so we have to pass it specifically,rest 3 are by default value
+//                    val notes = Notes(title,description)
+                    val notes = Notes(title=title,description=description)
+                    //adding into recyclerview
                     notesList.add(notes)
+                    addNotesToDb(notes)
                 } else {
                     Toast.makeText(this@MyNotesActivity, "Title and Description can't be empty", Toast.LENGTH_SHORT).show()
                 }
-                setUpRecyclerView()
+//                setUpRecyclerView()
                 dialog.hide()
             }
         })
         dialog.show()
+    }
+    private fun getDataFromDb(){
+        val notesApp=applicationContext as NotesApp
+        val notesDao=notesApp.getNotesDb().notesDao()
+        val noteList=notesDao.getAll()
+        notesList.addAll(noteList)
+
+    }
+
+    private fun addNotesToDb(notes: Notes) {
+        //insert into Db
+        val notesApp=applicationContext as NotesApp
+        val notesDao=notesApp.getNotesDb().notesDao()
+        notesDao.insert(notes)
+
     }
 
     private fun setUpRecyclerView() {
@@ -97,6 +121,13 @@ class MyNotesActivity : AppCompatActivity() {
                 intent.putExtra(AppConstant.TITLE, notes.title)
                 intent.putExtra(AppConstant.DESCRIPTION, notes.description)
                 startActivity(intent)
+            }
+
+            override fun onUpdate(notes: Notes) {
+              //update the value of checkbox
+                val notesApp=applicationContext as NotesApp
+                val notesDao=notesApp.getNotesDb().notesDao()
+                notesDao.updateNotes(notes)
             }
         }
         val notesAdapter = NotesAdapter(notesList, itemClickListener)
