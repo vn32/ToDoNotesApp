@@ -5,6 +5,7 @@ object AppConstant {
     var Full_Name = "full_name"
     var TITLE = "title"
     var DESCRIPTION = "description"
+    var IMAGE_PATH="image_path"
 }
 //package com.example.todonotesapp;
 //

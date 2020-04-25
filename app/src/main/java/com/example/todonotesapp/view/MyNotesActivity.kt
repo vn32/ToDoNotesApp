@@ -24,7 +24,7 @@ import com.example.todonotesapp.db.Notes
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
-class MyNotesActivity : AppCompatActivity() {
+class  MyNotesActivity : AppCompatActivity() {
     var fullName: String?=null
     lateinit var fabAddNotes: FloatingActionButton
     lateinit var recyclerViewNotes: RecyclerView
@@ -138,6 +138,21 @@ class MyNotesActivity : AppCompatActivity() {
         linearLayoutManager.orientation = RecyclerView.VERTICAL //setting the item is shown horizontal  or veritical
         recyclerViewNotes.layoutManager = linearLayoutManager
         recyclerViewNotes.adapter = notesAdapter
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode==ADD_NOTES_CODE){
+            val title=data?.getStringExtra(AppConstant.TITLE)
+            val description=data?.getStringExtra(AppConstant.DESCRIPTION)
+            val imagePath=data?.getStringExtra(AppConstant.IMAGE_PATH)
+            //now we have to add into db
+            val notes=Notes(title=title!!,description = description!!,imagePath = imagePath!!,isTaskCompleted = false)
+            addNotesToDb(notes)
+            notesList.add(notes)
+            recyclerViewNotes.adapter?.notifyItemChanged(notesList.size-1)
+        }
+
     }
 }
 /*
