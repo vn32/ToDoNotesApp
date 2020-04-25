@@ -3,7 +3,7 @@ package com.example.todonotesapp.db
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-
+//created table for database
 @Entity(tableName = "notesdata")
 data class Notes(
         @PrimaryKey(autoGenerate = true)

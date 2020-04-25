@@ -2,7 +2,7 @@ package com.example.todonotesapp.db
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-
+//interface to communicate databse with view
 @Dao
 interface NotesDao{
     @Query("SELECT * FROM notesdata")

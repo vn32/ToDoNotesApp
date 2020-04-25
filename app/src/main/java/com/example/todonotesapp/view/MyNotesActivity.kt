@@ -28,6 +28,7 @@ class MyNotesActivity : AppCompatActivity() {
     var fullName: String?=null
     lateinit var fabAddNotes: FloatingActionButton
     lateinit var recyclerViewNotes: RecyclerView
+    val ADD_NOTES_CODE=100
     var notesList = ArrayList<Notes>()
     lateinit var sharedPreferences: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,9 @@ class MyNotesActivity : AppCompatActivity() {
         supportActionBar?.title = fullName
         fabAddNotes.setOnClickListener (object:View.OnClickListener{
             override fun onClick(v: View?) {
-                setUpDialogBox()
+                //setUpDialogBox()
+                val intent=Intent(this@MyNotesActivity,AddNotesActivity::class.java)
+                startActivityForResult(intent,ADD_NOTES_CODE)
             }
         })
     }
