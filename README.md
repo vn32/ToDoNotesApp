@@ -1,1 +1,1 @@
-# MyAndroidProject - This is a simple Android Studio Project.
+# MyAndroidProject - This is a note-making Android Studio App.
