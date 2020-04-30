@@ -1,8 +1,8 @@
 package com.example.todonotesapp.view
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.PeriodicSync
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,8 +12,12 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+//import androidx.constraintlayout.widget.Constraints
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.Constraints
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.example.todonotesapp.NotesApp
 import com.example.todonotesapp.utils.AppConstant
 import com.example.todonotesapp.utils.PrefConstant
@@ -21,8 +25,11 @@ import com.example.todonotesapp.R
 import com.example.todonotesapp.adapter.NotesAdapter
 import com.example.todonotesapp.clicklisteners.ItemClickListener
 import com.example.todonotesapp.db.Notes
+import com.example.todonotesapp.workmanager.MyWorker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
+import java.util.concurrent.TimeUnit
+
 
 class  MyNotesActivity : AppCompatActivity() {
     var fullName: String?=null
@@ -39,6 +46,7 @@ class  MyNotesActivity : AppCompatActivity() {
         getIntentData()
         getDataFromDb()
         setUpRecyclerView()
+        setUpWorkManager()
         supportActionBar?.title = fullName
         fabAddNotes.setOnClickListener (object:View.OnClickListener{
             override fun onClick(v: View?) {
@@ -49,7 +57,14 @@ class  MyNotesActivity : AppCompatActivity() {
         })
     }
 
-
+    private fun setUpWorkManager() {
+        val constraint= Constraints.Builder().build()
+        val workRequest=PeriodicWorkRequest
+                .Builder(MyWorker::class.java,15,TimeUnit.MINUTES)
+                .setConstraints(constraint)
+                .build()
+        WorkManager.getInstance().enqueue(workRequest)
+    }
     private fun setupSharedPreference() {
         sharedPreferences = getSharedPreferences(PrefConstant.SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE)
     }
