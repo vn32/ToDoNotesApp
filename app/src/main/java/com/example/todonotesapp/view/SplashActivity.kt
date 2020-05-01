@@ -1,12 +1,17 @@
 package com.example.todonotesapp.view
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.media.RingtoneManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
 import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
 import com.google.android.gms.tasks.OnCompleteListener
@@ -20,6 +25,24 @@ class SplashActivity : AppCompatActivity() {
         setupSharedPreference()
         checkLoginStatus()
         fcmToken()
+        setUpNotificationMessage("this is local notification")
+    }
+    private fun setUpNotificationMessage(body: String?) {
+        val channelId="Todo "
+        val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("ToDo Notes App")
+                .setContentText(body)
+                .setSound(ringtone)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, "Local-Notes", NotificationManager.IMPORTANCE_HIGH)
+            notificationManager.createNotificationChannel(channel)
+        }
+        notificationManager.notify(0, notificationBuilder.build())
+
     }
 
     private fun fcmToken() {

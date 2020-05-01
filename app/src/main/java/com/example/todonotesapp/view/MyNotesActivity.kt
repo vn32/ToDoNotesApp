@@ -5,7 +5,10 @@ import android.content.Intent
 import android.content.PeriodicSync
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -168,6 +171,25 @@ class  MyNotesActivity : AppCompatActivity() {
             recyclerViewNotes.adapter?.notifyItemChanged(notesList.size-1)
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        return super.onCreateOptionsMenu(menu)
+        val inflater=menuInflater
+        inflater.inflate(R.menu.menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId==R.id.blog){
+            //we want to open a new activity when clicked on the item
+            Log.d("MyNotesActivity","blog clicked")
+            val intent=Intent(this@MyNotesActivity,BlogActivity::class.java)
+            startActivity(intent)
+
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
 /*
