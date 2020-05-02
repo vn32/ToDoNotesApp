@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.example.todonotesapp.utils.PrefConstant
 import com.example.todonotesapp.R
+import com.example.todonotesapp.onboarding.BoardingActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 
@@ -25,25 +26,25 @@ class SplashActivity : AppCompatActivity() {
         setupSharedPreference()
         checkLoginStatus()
         fcmToken()
-        setUpNotificationMessage("this is local notification")
+//        setUpNotificationMessage("this is local notification")
     }
-    private fun setUpNotificationMessage(body: String?) {
-        val channelId="Todo "
-        val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher_round)
-                .setContentTitle("ToDo Notes App")
-                .setContentText(body)
-                .setSound(ringtone)
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(channelId, "Local-Notes", NotificationManager.IMPORTANCE_HIGH)
-            notificationManager.createNotificationChannel(channel)
-        }
-        notificationManager.notify(0, notificationBuilder.build())
-
-    }
+//    private fun setUpNotificationMessage(body: String?) {
+//        val channelId="Todo "
+//        val ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+//        val notificationBuilder = NotificationCompat.Builder(this, channelId)
+//                .setSmallIcon(R.mipmap.ic_launcher_round)
+//                .setContentTitle("ToDo Notes App")
+//                .setContentText(body)
+//                .setSound(ringtone)
+//        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//
+//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel(channelId, "Local-Notes", NotificationManager.IMPORTANCE_HIGH)
+//            notificationManager.createNotificationChannel(channel)
+//        }
+//        notificationManager.notify(0, notificationBuilder.build())
+//
+//    }
 
     private fun fcmToken() {
         FirebaseInstanceId.getInstance().instanceId
@@ -68,13 +69,22 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun checkLoginStatus() {
+        val isBoardingSuccess=sharedPreferences.getBoolean(PrefConstant.ON_BOARDED_SUCCESSFULLY,false)
         val isLoggedIn = sharedPreferences.getBoolean(PrefConstant.IS_LOGGED_IN, false)
         if (isLoggedIn) {
             val intent = Intent(this@SplashActivity, MyNotesActivity::class.java)
             startActivity(intent)
         } else {
+            //if on boarded success->login
+            //else go to onboardingactivity
+            if(isBoardingSuccess){
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
+            } else {
+                val intent = Intent(this@SplashActivity, BoardingActivity::class.java)
+                startActivity(intent)
+            }
+
         }
     }
 }

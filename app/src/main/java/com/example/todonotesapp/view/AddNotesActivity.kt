@@ -110,8 +110,7 @@ class AddNotesActivity : AppCompatActivity() {
         textViewCamera.setOnClickListener(object: View.OnClickListener {
             override fun onClick(p0: View?) {
                 val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                var photoFile : File?
-                photoFile = createImage()
+                var photoFile : File? = createImage()
                 if (photoFile != null) {
                     val photoURI = FileProvider.getUriForFile(this@AddNotesActivity, BuildConfig.APPLICATION_ID + ".provider", photoFile)
                     picturePath = photoFile.absolutePath
@@ -123,16 +122,13 @@ class AddNotesActivity : AppCompatActivity() {
 
             }
         })
-        textViewGallery.setOnClickListener(object: View.OnClickListener {
-            override fun onClick(p0: View?) {
-                //implicit intent
-                val intent=Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-                startActivityForResult(intent,REQUEST_CODE_GALLERY)
-                //startactivity for result means go to another specified place fetch data and came back to
-                //previous activity with the data
-                dialog.hide()
-            }
-        })
+        textViewGallery.setOnClickListener { //implicit intent
+            val intent=Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent,REQUEST_CODE_GALLERY)
+            //startactivity for result means go to another specified place fetch data and came back to
+            //previous activity with the data
+            dialog.hide()
+        }
         dialog.show()
 
     }
@@ -166,7 +162,7 @@ class AddNotesActivity : AppCompatActivity() {
                     val c=contentResolver.query(selectImage!!,filePath,null,null,null)
                     c?.moveToFirst()
                     val columnIndex=c?.getColumnIndex(filePath[0])
-                    val picturePath= c?.getString(columnIndex!!)
+                    picturePath= c?.getString(columnIndex!!).toString()
                     //close the cursor
                     c?.close()
                     Log.d("AddNotesActivity",picturePath)

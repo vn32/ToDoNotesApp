@@ -11,7 +11,7 @@ import android.widget.TextView
 import com.example.todonotesapp.R
 
 class OnBoardingTwoFragment : Fragment() {
-    lateinit var textViewNext:TextView
+    lateinit var textViewDone:TextView
     lateinit var textViewBack:TextView
     lateinit var onOptionClick: OnOptionClick
     //initializing interface variable
@@ -30,7 +30,7 @@ class OnBoardingTwoFragment : Fragment() {
     }
 
     private fun bindViews(view: View) {
-        textViewNext=view.findViewById(R.id.textViewNext)
+        textViewDone=view.findViewById(R.id.textViewDone)
         textViewBack=view.findViewById(R.id.textViewBack)
         clickListener()
 
@@ -38,11 +38,11 @@ class OnBoardingTwoFragment : Fragment() {
 
     private fun clickListener() {
         textViewBack.setOnClickListener { onOptionClick.onOptionBack() }
-        textViewNext.setOnClickListener { onOptionClick.onOptionNext() }
+        textViewDone.setOnClickListener { onOptionClick.onOptionDone() }
     }
 
     interface OnOptionClick{
-        fun onOptionNext()
+        fun onOptionDone()
         fun onOptionBack()
     }
 }
