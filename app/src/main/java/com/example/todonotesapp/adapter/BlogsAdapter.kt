@@ -22,6 +22,7 @@ class BlogsAdapter(val list: List<Data>): RecyclerView.Adapter<BlogsAdapter.View
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        //setting data into block widget id
         val blog = list[position]
         holder.textViewTitleBlog.text = blog.title.trim()
         holder.textViewDescriptionBlog.text = blog.description.trim()

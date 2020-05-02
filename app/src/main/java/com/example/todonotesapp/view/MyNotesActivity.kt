@@ -172,7 +172,7 @@ class  MyNotesActivity : AppCompatActivity() {
         }
 
     }
-
+//implemented menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 //        return super.onCreateOptionsMenu(menu)
         val inflater=menuInflater
