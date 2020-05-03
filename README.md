@@ -1,5 +1,6 @@
 # MyAndroidProject - This is a note-making Android Studio App.
-<h3>Screenshots Demo </h3>
+<h2>Screenshots Demo </h2>
+<hr border: 1px dashed black></hr>
 <b><i>ViewPager for first time users<i/> </b>
 <br/>
 <br/>
