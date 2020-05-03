@@ -45,3 +45,6 @@
 <p float="left" align="middle">
   <img src="https://user-images.githubusercontent.com/51945342/80912853-8a4d0600-8d5d-11ea-8db7-8184f1c5c47f.jpg" width="275" height="500"/>
 </p>
+<br/>
+<hr border: 1px dashed black></hr>
+<a href="https://drive.google.com/file/d/1JTzrJvNqJZBXIFrBzmNDeUxzlRM3Mv-6/view">Download APK</a>
