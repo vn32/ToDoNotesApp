@@ -2,6 +2,7 @@
 <h3>Screenshots Demo </h3>
 <b><i>ViewPager for first time users<i/> </b>
 <br/>
+<br/>
 <p float="left" align="middle">
   <img src="https://user-images.githubusercontent.com/51945342/80911212-a26b5800-8d52-11ea-971e-142f28059173.jpg" width="275" height="500"/>
   <img src="https://user-images.githubusercontent.com/51945342/80911213-a5fedf00-8d52-11ea-9e46-43552b2add3b.jpg" width="275"  height="500"/>
@@ -16,6 +17,7 @@
 <br/><hr border: 1px dashed black></hr>
 <b><i>Set Dynamic Permissions<i/> </b>
 <br/>
+<br/>
 <p float="left" align="middle">
   <img src="https://user-images.githubusercontent.com/51945342/80911226-bd3dcc80-8d52-11ea-8a96-fcdb956215f0.jpg" width="275" height="500"/>
   <img src="https://user-images.githubusercontent.com/51945342/80911229-c038bd00-8d52-11ea-89b6-2b86ef1f5bc4.jpg" width="275"  height="500"/>
@@ -23,6 +25,7 @@
 </p>
 <br/><hr border: 1px dashed black></hr>
 <b><i>Add Notes<i/> </b>
+<br/>
 <br/>
 <p float="left" align="middle">
   <img src="https://user-images.githubusercontent.com/51945342/80912834-74d7dc00-8d5d-11ea-843a-baeaab015b14.jpg" width="275" height="500"/>
