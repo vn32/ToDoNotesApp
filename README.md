@@ -2,7 +2,7 @@
 Screenshots Demo
 
 
-`<p float="left">
-  <img src="C:\Users\user\Desktop\screenshot\" width="100" height="100"/>
-  <img src="C:\Users\user\Desktop\screenshot" width="100"  height="100"/>
-</p>`
+<p float="left">
+  <img src="C:\Users\user\Desktop\screenshot\firstfragment.jpg" width="400" height="600"/>
+  <img src="C:\Users\user\Desktop\screenshot\secondfragment.jpg" width="400"  height="600"/>
+</p>
