@@ -193,6 +193,7 @@ class  MyNotesActivity : AppCompatActivity() {
     }
 }
 /*
+java code
 package com.example.todonotesapp;
 
 import androidx.appcompat.app.AlertDialog;

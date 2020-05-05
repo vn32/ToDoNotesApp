@@ -11,10 +11,7 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -29,8 +26,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AddNotesActivity : AppCompatActivity() {
-    lateinit var EditTextTitle:EditText
-    lateinit var EditTextDescription:EditText
+    lateinit var editTextTitle:EditText
+    lateinit var editTextDescription:EditText
     lateinit var imageViewNotes:ImageView
     lateinit var buttonSubmit:Button
     val REQUEST_CODE_GALLERY=2
@@ -57,12 +54,18 @@ class AddNotesActivity : AppCompatActivity() {
         })
         buttonSubmit.setOnClickListener(object:View.OnClickListener{
             override fun onClick(p0: View?) {
-                val intent=Intent()
-                intent.putExtra(AppConstant.TITLE,EditTextTitle.text.toString())
-                intent.putExtra(AppConstant.DESCRIPTION,EditTextDescription.text.toString())
-                intent.putExtra(AppConstant.IMAGE_PATH,picturePath)
-                setResult(Activity.RESULT_OK,intent)
-                finish()
+                val title = editTextTitle.text.toString()
+                val description = editTextDescription.text.toString()
+                if(title.isNotEmpty() && description.isNotEmpty()) {
+                    val intent = Intent()
+                    intent.putExtra(AppConstant.TITLE, editTextTitle.text.toString())
+                    intent.putExtra(AppConstant.DESCRIPTION, editTextDescription.text.toString())
+                    intent.putExtra(AppConstant.IMAGE_PATH, picturePath)
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                } else {
+                    Toast.makeText(this@AddNotesActivity, "Title and Description can't be empty", Toast.LENGTH_SHORT).show()
+                }
             }
 
 
@@ -144,8 +147,8 @@ class AddNotesActivity : AppCompatActivity() {
 
 
     private fun bindViews() {
-        EditTextTitle=findViewById(R.id.EditTextTitle)
-        EditTextDescription=findViewById(R.id.EditTextDescription)
+        editTextTitle=findViewById(R.id.EditTextTitle)
+        editTextDescription=findViewById(R.id.EditTextDescription)
         imageViewNotes=findViewById(R.id.imageViewNotes)
         buttonSubmit=findViewById(R.id.buttonSubmit)
 
@@ -176,6 +179,7 @@ class AddNotesActivity : AppCompatActivity() {
        }
     }
 }
+
 
 
 

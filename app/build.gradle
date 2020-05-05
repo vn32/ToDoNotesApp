@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.amitshekhar.android:android-networking:1.0.2'
     //Viewpager
     implementation 'androidx.viewpager:viewpager:1.0.0'
+    //debug database
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
 
 }

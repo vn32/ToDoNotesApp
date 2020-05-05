@@ -43,6 +43,7 @@ class BoardingActivity : AppCompatActivity(),OnBoardingOneFragment.OnNextClick,O
         editor.apply()
       val intent= Intent(this@BoardingActivity,LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
     override fun onOptionBack() {

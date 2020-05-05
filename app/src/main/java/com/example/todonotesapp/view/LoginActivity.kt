@@ -32,8 +32,10 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                 intent.putExtra(AppConstant.Full_Name, fullName)
                 startActivity(intent)
+                finish()
                 saveLoginStatus()
                 saveFullName(fullName)
+
             } else {
                 Toast.makeText(this@LoginActivity, "FullName and UserName can't be empty", Toast.LENGTH_SHORT).show()
             }
@@ -52,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                     intent.putExtra(AppConstant.Full_Name, fullName)
                     startActivity(intent)
+//                    finish()
                     saveLoginStatus()
                     saveFullName(fullName)
                 } else {
@@ -83,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
     }
 }
 /*
+java code
 package com.example.todonotesapp;
 
 import androidx.appcompat.app.AppCompatActivity;

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent"
     tools:context=".view.SplashActivity">
 
@@ -10,6 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="My Notes App"
+        android:shadowColor="@color/cardview_shadow_end_color"
+        android:textColor="@color/cardview_light_background"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -17,7 +17,4 @@ data class Notes(
         @ColumnInfo(name="isTaskCompleted")
         var isTaskCompleted:Boolean=false
 
-
-
-
 )
