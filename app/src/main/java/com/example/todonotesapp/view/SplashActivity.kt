@@ -75,20 +75,23 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this@SplashActivity, MyNotesActivity::class.java)
             startActivity(intent)
 
+
         } else {
             //if on boarded success->login
             //else go to onboardingactivity
             if(isBoardingSuccess){
             val intent = Intent(this@SplashActivity, LoginActivity::class.java)
             startActivity(intent)
-//                finish()
+
             } else {
                 val intent = Intent(this@SplashActivity, BoardingActivity::class.java)
                 startActivity(intent)
 
-            }
 
+            }
         }
+        finish()
+
 
     }
 }

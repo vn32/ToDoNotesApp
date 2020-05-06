@@ -32,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
                 val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                 intent.putExtra(AppConstant.Full_Name, fullName)
                 startActivity(intent)
-                finish()
                 saveLoginStatus()
                 saveFullName(fullName)
 
@@ -54,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this@LoginActivity, MyNotesActivity::class.java)
                     intent.putExtra(AppConstant.Full_Name, fullName)
                     startActivity(intent)
-//                    finish()
                     saveLoginStatus()
                     saveFullName(fullName)
                 } else {
